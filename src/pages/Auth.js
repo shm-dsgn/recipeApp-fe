@@ -21,7 +21,7 @@ const Register = () => {
 
     try {
       await axios
-        .post("http://localhost:3001/auth/register", {
+        .post("https://recipeapp-api.onrender.com/auth/register", {
           username,
           password,
         })
@@ -58,7 +58,7 @@ const Login = () => {
 
     try {
       const response = await axios
-        .post("http://localhost:3001/auth/login", {
+        .post("https://recipeapp-api.onrender.com/auth/login", {
           username,
           password,
         })

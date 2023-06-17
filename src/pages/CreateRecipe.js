@@ -41,7 +41,7 @@ const CreateRecipe = () => {
     event.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3001/recipes",
+        "https://recipeapp-api.onrender.com/recipes",
         { ...recipe },
         {
           headers: { authorization: cookies.access_token },
