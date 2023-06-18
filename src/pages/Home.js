@@ -63,7 +63,7 @@ const Home = () => {
     <div className="flex flex-col justify-center items-center">
       <h1 className="font-bold text-2xl my-2">Recipes</h1>
       {isLoaded ? <h1>Loading...</h1> : (
-        <ul className="flex">
+        <ul>
         {recipes.map((recipe) => {
           return (
             <li
