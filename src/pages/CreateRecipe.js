@@ -55,7 +55,8 @@ const CreateRecipe = () => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center">
+    <div className="w-full flex justify-center">
+      <div className="flex flex-col justify-center items-center bg-gray-300 w-64">
       <h2 className="font-bold">Create Recipe</h2>
       <form
         onSubmit={handleSubmit}
@@ -124,6 +125,7 @@ const CreateRecipe = () => {
           Create Recipe
         </button>
       </form>
+    </div>
     </div>
   );
 };

@@ -8,11 +8,15 @@ const Home = () => {
   const [savedRecipes, setSavedRecipes] = useState([]); // eslint-disable-next-line
   const [cookies, _] = useCookies(["access_token"]);
   const userID = useGetUserID();
+  const [isLoaded, setIsLoaded] = useState(true);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get("https://recipeapp-api.onrender.com/recipes");
+        const response = await axios.get(
+          "https://recipeapp-api.onrender.com/recipes"
+        );
+        setIsLoaded(false);
         setRecipes(response.data);
       } catch (err) {
         console.log(err);
@@ -31,11 +35,10 @@ const Home = () => {
     };
 
     fetchRecipes();
-    if(cookies.access_token)
-    {
+    if (cookies.access_token) {
       fetchSavedRecipes();
     }
-  }, [userID, cookies.access_token]);
+  }, [userID, cookies.access_token, savedRecipes]);
 
   const saveRecipe = async (recipeID) => {
     try {
@@ -58,16 +61,18 @@ const Home = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1>Recipes</h1>
-      <ul>
+      <h1 className="font-bold text-2xl my-2">Recipes</h1>
+      {isLoaded ? <h1>Loading...</h1> : (
+        <ul className="flex">
         {recipes.map((recipe) => {
           return (
             <li
               key={recipe._id}
-              className="border border-black my-2 flex flex-col justify-center items-center"
+              className="border border-black m-2 flex flex-col justify-start items-start rounded-md w-96"
             >
-              <div>
-                <h2 className="font-bold my-2">{recipe.name}</h2>
+              <img src={recipe.imageUrl} alt={recipe.name} className= " rounded-md w-full aspect-video" />
+              <div className="my-2 px-4">
+                <h2 className="font-bold my-2 text-xl">{recipe.name}</h2>
                 <button
                   onClick={() => saveRecipe(recipe._id)}
                   disabled={isRecipeSaved(recipe._id)}
@@ -80,25 +85,27 @@ const Home = () => {
                   {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
                 </button>
               </div>
-              <div className=" my-2">
+              <div className="font-bold my-2 px-4">
                 Ingredients:
                 {recipe.ingredients.map((ingredient, index) => (
-                  <span key={index} className="mx-2">
+                  <span key={index} className="font-normal mx-1">
                     {ingredient}
                   </span>
                 ))}
               </div>
-              <div className=" my-2">
-                <p>Instructions: {recipe.instructions}</p>
+              <div className=" my-2 px-4">
+                <p><span className="font-bold">Instructions</span>: {recipe.instructions}</p>
               </div>
-              <img src={recipe.imageUrl} alt={recipe.name} className="w-64" />
-              <p className=" my-2">
-                Cooking Time: {recipe.cookingTime} minutes
+              
+              <p className=" my-2 px-4">
+                <span className="font-bold">Cooking Time</span>: {recipe.cookingTime} minutes
               </p>
             </li>
           );
         })}
       </ul>
+      )}
+      
     </div>
   );
 };
