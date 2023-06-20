@@ -1,6 +1,8 @@
 # recipeApp(Frontend)
 Made with React & Tailwind.
 
+[Backend Repository](https://github.com/shm-dsgn/recipeApp-be)
+
 ## Available Scripts
 
 In the project directory, you can run:
