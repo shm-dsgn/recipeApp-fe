@@ -28,6 +28,7 @@ const Home = () => {
         const response = await axios.get(
           `https://recipeapp-api.onrender.com/recipes/savedRecipes/ids/${userID}`
         );
+setIsLoaded(false);
         setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
         console.log(err);
